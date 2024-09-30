@@ -20,6 +20,29 @@
 
 ```python
 # 请在这里填写你的代码
+import math
+
+def nearest_sq(n):
+    # 计算 n 的平方根并向下取整
+    root = int(math.sqrt(n))
+    
+    # 计算下一个平方数和当前平方数
+    lower_sq = root ** 2
+    upper_sq = (root + 1) ** 2
+    
+    # 如果 n 已经是完全平方数，则直接返回 n
+    if n == lower_sq:
+        return n
+    
+    # 返回最近的平方数
+    if (n - lower_sq) < (upper_sq - n):
+        return lower_sq
+    else:
+        return upper_sq
+
+# 测试函数
+print(nearest_sq(111))  # 输出 121
+print(nearest_sq(144))  # 输出 144
 
 
 ```
@@ -34,6 +57,11 @@
 
 ```python
 # 请在这里填写你的代码
+def even_or_odd(number):
+    return "Even" if number % 2 == 0 else "Odd"
+
+print(even_or_odd(2))  # 输出 "Even"
+print(even_or_odd(3))  # 输出 "Odd"
 
 ```
 
@@ -60,5 +88,29 @@ python中没有内置堆栈数据结构，可以直接使用`list`来作为堆�
 
 ```python
 # 请在这里填写你的代码
+def valid_braces(string):
+    # 定义一个栈来存储开放的括号
+    stack = []
+    
+    mapping = {')': '(', '}': '{', ']': '['}
+    
+    for char in string:
+        # 如果是开放括号，入栈
+        if char in mapping.values():
+            stack.append(char)
+        # 如果是闭合括号，检查栈顶元素
+        elif char in mapping.keys():
+            # 检查栈是否为空且栈顶元素是否匹配
+            if not stack or stack.pop() != mapping[char]:
+                return False
+    
+    # 返回栈是否为空（所有括号是否都已匹配）
+    return len(stack) == 0
+
+print(valid_braces("(){}[]"))    # 输出 True
+print(valid_braces("([{}])"))     # 输出 True
+print(valid_braces("(}"))         # 输出 False
+print(valid_braces("[(])"))       # 输出 False
+print(valid_braces("[({})](]"))   # 输出 False
 
 ```
